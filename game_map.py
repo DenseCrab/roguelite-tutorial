@@ -75,6 +75,12 @@ class GameMap:
             choicelist=[self.tiles["light"], self.tiles["dark"]],
             default=tile_types.SHROUD,
         )
+        """The np.select works as follows:
+            If first condition in condlist evaluates to true, it executes the first value in choicelist
+            etc.
+            default is both are false
+        """
+
 
         entities_sorted_for_rendering = sorted(
             self.entities, key=lambda x: x.render_order.value
