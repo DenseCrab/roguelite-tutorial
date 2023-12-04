@@ -9,6 +9,7 @@ from actions import Action, BumpAction, EscapeAction, WaitAction
 if TYPE_CHECKING:
     from engine import Engine
 
+
 MOVE_KEYS = {
     # Arrow keys.
     tcod.event.K_UP: (0, -1),
@@ -45,6 +46,7 @@ WAIT_KEYS = {
     tcod.event.K_CLEAR,
 }
 
+
 class EventHandler(tcod.event.EventDispatch[Action]):
     def __init__(self, engine: Engine):
         self.engine = engine
@@ -54,7 +56,7 @@ class EventHandler(tcod.event.EventDispatch[Action]):
 
     def ev_quit(self, event: tcod.event.Quit) -> Optional[Action]:
         raise SystemExit()
-    
+
 
 class MainGameEventHandler(EventHandler):
     def handle_events(self) -> None:
@@ -87,7 +89,8 @@ class MainGameEventHandler(EventHandler):
 
         # No valid key was pressed
         return action
-    
+
+
 class GameOverEventHandler(EventHandler):
     def handle_events(self) -> None:
         for event in tcod.event.wait():

@@ -11,6 +11,7 @@ from components.base_component import BaseComponent
 if TYPE_CHECKING:
     from entity import Actor
 
+
 class BaseAI(Action, BaseComponent):
     entity: Actor
 
@@ -45,7 +46,8 @@ class BaseAI(Action, BaseComponent):
 
         # Convert from List[List[int]] to List[Tuple[int, int]].
         return [(index[0], index[1]) for index in path]
-    
+
+
 class HostileEnemy(BaseAI):
     def __init__(self, entity: Actor):
         super().__init__(entity)

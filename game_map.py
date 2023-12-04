@@ -12,6 +12,7 @@ if TYPE_CHECKING:
     from engine import Engine
     from entity import Entity
 
+
 class GameMap:
     def __init__(
         self, engine: Engine, width: int, height: int, entities: Iterable[Entity] = ()
@@ -24,7 +25,6 @@ class GameMap:
         self.visible = np.full(
             (width, height), fill_value=False, order="F"
         )  # Tiles the player can currently see
-        
         self.explored = np.full(
             (width, height), fill_value=False, order="F"
         )  # Tiles the player has seen before
@@ -50,14 +50,13 @@ class GameMap:
                 return entity
 
         return None
-    
+
     def get_actor_at_location(self, x: int, y: int) -> Optional[Actor]:
         for actor in self.actors:
             if actor.x == x and actor.y == y:
                 return actor
 
         return None
-    
 
     def in_bounds(self, x: int, y: int) -> bool:
         """Return True if x and y are inside of the bounds of this map."""
@@ -77,19 +76,11 @@ class GameMap:
             default=tile_types.SHROUD,
         )
 
-        """The np.select works as follows:
-        
-            If first condition in condlist evaluates to true, it executes the first value in choicelist
-            etc.
-            default is both are false
-        """
-
         entities_sorted_for_rendering = sorted(
             self.entities, key=lambda x: x.render_order.value
         )
 
         for entity in entities_sorted_for_rendering:
-            # Only print entities that are in the FOV
             if self.visible[entity.x, entity.y]:
                 console.print(
                     x=entity.x, y=entity.y, string=entity.char, fg=entity.color
