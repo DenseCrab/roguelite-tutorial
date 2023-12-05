@@ -163,9 +163,13 @@ class MainGameEventHandler(EventHandler):
         action: Optional[Action] = None
 
         key = event.sym
+        modifier = event.mod
 
         player = self.engine.player
-
+        
+        if key == tcod.event.K_SPACE:
+            return actions.TakeStairsAction(player)
+        
         if key in MOVE_KEYS:
             dx, dy = MOVE_KEYS[key]
             action = BumpAction(player, dx, dy)
